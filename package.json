@@ -1,6 +1,6 @@
 {
-  "name": "vite-electron-esbuild-starter",
-  "version": "0.2.1",
+  "name": "electron-desktop-template",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development elecrun --vite --preload preload.ts",
@@ -16,12 +16,21 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {
+    "@mantine/core": "^4.1.0",
+    "@mantine/dates": "^4.1.0",
+    "@mantine/dropzone": "^4.1.0",
+    "@mantine/form": "^4.1.0",
+    "@mantine/hooks": "^4.1.0",
+    "@mantine/modals": "^4.1.0",
+    "@mantine/notifications": "^4.1.0",
+    "@mantine/spotlight": "^4.1.0",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@vitejs/plugin-react": "^1.3.0",
     "chalk": "^5.0.1",
     "cross-env": "^7.0.3",
+    "dayjs": "^1.11.0",
     "electron": "^11.3.0",
     "electron-builder": "^22.14.13",
     "electron-rebuild": "^3.2.7",
