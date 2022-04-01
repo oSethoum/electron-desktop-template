@@ -2,12 +2,12 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import { AppProvider } from "@renderer/AppProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
-      <App />
+      <AppProvider />
     </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
