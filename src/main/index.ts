@@ -47,7 +47,7 @@ function createWindow() {
   });
   if (isDevelopment) {
     win.loadURL("http://localhost:3000");
-    win.webContents.toggleDevTools();
+    //win.webContents.toggleDevTools();
   } else {
     win.loadURL(
       pathToFileURL(join(__dirname, "./renderer/index.html")).toString()
