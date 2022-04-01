@@ -10,4 +10,5 @@ export enum ChromeAction {
   Minimize,
   Maximize,
   Restore,
+  Full,
 }
