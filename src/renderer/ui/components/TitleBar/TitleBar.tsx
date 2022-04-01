@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useContext } from "react";
 import {
-  createStyles,
   useMantineColorScheme,
   Box,
   Header,
+  useMantineTheme,
 } from "@mantine/core";
 import {
   VscChromeClose,
@@ -14,61 +15,8 @@ import {
 import { CgMoon, CgSun } from "react-icons/cg";
 import { ChromeAction, ChromeState } from "@common/utils";
 import { useWindowEvent } from "@mantine/hooks";
-import { useRecoilState } from "recoil";
-import { chromeAtom } from "@renderer/atoms";
-
-const useStyles = createStyles((theme) => {
-  return {
-    container: {
-      color:
-        theme.colorScheme == "dark"
-          ? theme.colors.gray[1]
-          : theme.colors.dark[5],
-
-      display: "flex",
-      flexDirection: "row",
-    },
-    menu: {},
-    dragArea: {
-      flexGrow: 1,
-      WebkitAppRegion: "drag",
-    },
-
-    chromeButtons: {
-      display: "flex",
-      flexDirection: "row",
-    },
-
-    chromeButtonHover: {
-      backgroundColor: "transparent",
-      "&:hover": {
-        backgroundColor:
-          theme.colorScheme === "light"
-            ? theme.colors.gray[3]
-            : theme.colors.gray[8],
-        color: theme.colorScheme === "light" ? theme.black : theme.white,
-      },
-    },
-
-    chromeButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: 48,
-      border: "none",
-      "&:focus": {
-        outline: "none",
-      },
-    },
-
-    closeButton: {
-      "&:hover": {
-        backgroundColor: "red",
-        color: "white",
-      },
-    },
-  };
-});
+import { ChromeContext } from "@renderer/context";
+import { useStyles } from "./styles";
 
 async function ping() {
   // @ts-ignore
@@ -82,10 +30,10 @@ async function ping() {
 
 export const ToolBar = () => {
   const { classes, cx } = useStyles();
-  const [chrome, setChrome] = useRecoilState(chromeAtom);
+  const { chrome, setChrome } = useContext(ChromeContext);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [hover, setHover] = useState(false);
-  const [opened, setOpened] = useState(false);
+  const theme = useMantineTheme();
   const chromeAction = (action: ChromeAction) => {
     // @ts-ignore
     api.send("chrome", action);
@@ -109,7 +57,11 @@ export const ToolBar = () => {
           className={cx(classes.chromeButton, classes.chromeButtonHover)}
           onClick={() => toggleColorScheme()}
         >
-          {colorScheme == "light" ? <CgMoon size="16" /> : <CgSun size="16" />}
+          {colorScheme == "light" ? (
+            <CgMoon size="18" color={theme.colors.blue[7]} />
+          ) : (
+            <CgSun size="18" color={theme.colors.yellow[4]} />
+          )}
         </Box>
 
         <Box

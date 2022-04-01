@@ -1,10 +1,12 @@
-import { AppShell, Box } from "@mantine/core";
-import { ToolBar } from "./ui";
+import { AppShell, Box, Button } from "@mantine/core";
+import { Home, NavBar, StatusBar, ToolBar } from "./ui";
 
 function App() {
   return (
     <Box>
-      <AppShell header={<ToolBar />}>Hello</AppShell>
+      <AppShell header={<ToolBar />} navbar={<NavBar />} footer={<StatusBar />}>
+        <Home />
+      </AppShell>
     </Box>
   );
 }
