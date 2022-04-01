@@ -12,6 +12,7 @@ import { ChromeContext } from "./context";
 import { ChromeState } from "@common/utils";
 import { Global } from "@mantine/core";
 import rtlPlugin from "stylis-plugin-rtl";
+import i18n from "@renderer/i18n";
 
 const GlobalStyles = () => {
   return (
@@ -58,6 +59,7 @@ export const AppProvider: React.FC = ({ children }) => {
       setDir("ltr");
       document.documentElement.dir = "ltr";
     }
+    i18n.changeLanguage(language);
   }, [language]);
 
   const toggleColorScheme = (value?: ColorScheme) => {
