@@ -19,9 +19,6 @@ ipcMain.on("chrome", (event, data) => {
     case ChromeAction.Minimize:
       win.minimize();
       break;
-    case ChromeAction.Full:
-      win.fullScreen = true;
-      break;
     case ChromeAction.Restore:
       win.restore();
       break;
@@ -38,7 +35,6 @@ function createWindow() {
   win = new BrowserWindow({
     minWidth: width * 0.8,
     minHeight: height * 0.8,
-    center: true,
     frame: false,
     webPreferences: {
       nodeIntegration: false,

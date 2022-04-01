@@ -4,13 +4,13 @@ import {
   ColorSchemeProvider,
   MantineProvider,
   MantineThemeOverride,
+  TypographyStylesProvider,
 } from "@mantine/core";
 import { useLocalStorageValue } from "@mantine/hooks";
 import { LanguageContext, LanguageProps } from "./context/language";
 import { ChromeContext } from "./context";
 import { ChromeState } from "@common/utils";
 import { Global } from "@mantine/core";
-import { RecoilRoot } from "recoil";
 import rtlPlugin from "stylis-plugin-rtl";
 
 const GlobalStyles = () => {
@@ -99,104 +99,104 @@ export const AppProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <RecoilRoot>
-      <LanguageContext.Provider value={{ language, setLanguage }}>
-        <ChromeContext.Provider value={{ chrome, setChrome }}>
-          <ColorSchemeProvider
-            colorScheme={colorScheme}
-            toggleColorScheme={toggleColorScheme}
+    <LanguageContext.Provider value={{ language, setLanguage }}>
+      <ChromeContext.Provider value={{ chrome, setChrome }}>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
+        >
+          <MantineProvider
+            withNormalizeCSS
+            theme={theme}
+            emotionOptions={
+              dir === "rtl"
+                ? { key: "mantine-rtl", stylisPlugins: [rtlPlugin] }
+                : { key: "mantine" }
+            }
+            styles={{
+              Select: (theme) => ({
+                dropdown: {
+                  marginTop: -6,
+                  marginBottom: -6,
+                  paddingTop: 1,
+                  paddingBottom: 4,
+                  border: `1px solid ${
+                    theme.colors[theme.primaryColor][
+                      theme.colorScheme === "light" ? 4 : 7
+                    ]
+                  }`,
+                  borderTop: "none",
+                },
+                item: {
+                  marginTop: 4,
+                },
+
+                hovered: {
+                  backgroundColor:
+                    theme.colors.gray[theme.colorScheme === "light" ? 2 : 7],
+                },
+              }),
+
+              Paper: ({ colorScheme, colors, white }) => ({
+                root: {
+                  backgroundColor:
+                    colorScheme === "dark" ? colors.dark[6] : white,
+                  border: `1px solid ${
+                    colors.gray[colorScheme === "dark" ? 8 : 3]
+                  }`,
+                },
+              }),
+
+              TextInput: ({ colorScheme, colors, white }) => ({
+                input: {
+                  backgroundColor:
+                    colorScheme === "dark" ? colors.dark[4] : white,
+                },
+
+                icon: {
+                  color: colors.gray[colorScheme === "dark" ? 3 : 7],
+                },
+              }),
+
+              Navbar: ({ colors, colorScheme }) => ({
+                root: {
+                  borderRight: `1px solid ${
+                    colors.gray[colorScheme === "dark" ? 8 : 3]
+                  }`,
+                  backgroundColor:
+                    colorScheme === "dark" ? colors.dark[6] : colors.gray[0],
+                },
+              }),
+
+              Footer: ({ colors, colorScheme }) => ({
+                root: {
+                  borderTop: `1px solid ${
+                    colors.gray[colorScheme === "dark" ? 8 : 3]
+                  }`,
+                  backgroundColor:
+                    colorScheme === "dark" ? colors.dark[6] : colors.gray[0],
+                },
+              }),
+
+              Header: ({ colors, colorScheme }) => ({
+                root: {
+                  borderBottom: `1px solid ${
+                    colors.gray[colorScheme === "dark" ? 8 : 3]
+                  }`,
+                  backgroundColor:
+                    colorScheme === "dark" ? colors.dark[6] : colors.gray[0],
+                },
+              }),
+            }}
           >
-            <MantineProvider
-              withNormalizeCSS
-              theme={theme}
-              emotionOptions={
-                dir === "rtl"
-                  ? { key: "mantine-rtl", stylisPlugins: [rtlPlugin] }
-                  : { key: "mantine" }
-              }
-              styles={{
-                Select: (theme) => ({
-                  dropdown: {
-                    marginTop: -6,
-                    marginBottom: -6,
-                    paddingTop: 1,
-                    paddingBottom: 4,
-                    border: `1px solid ${
-                      theme.colors[theme.primaryColor][
-                        theme.colorScheme === "light" ? 4 : 7
-                      ]
-                    }`,
-                    borderTop: "none",
-                  },
-                  item: {
-                    marginTop: 4,
-                  },
-
-                  hovered: {
-                    backgroundColor:
-                      theme.colors.gray[theme.colorScheme === "light" ? 2 : 7],
-                  },
-                }),
-
-                Paper: ({ colorScheme, colors, white }) => ({
-                  root: {
-                    backgroundColor:
-                      colorScheme === "dark" ? colors.dark[6] : white,
-                    border: `1px solid ${
-                      colors.gray[colorScheme === "dark" ? 8 : 3]
-                    }`,
-                  },
-                }),
-
-                TextInput: ({ colorScheme, colors, white }) => ({
-                  input: {
-                    backgroundColor:
-                      colorScheme === "dark" ? colors.dark[4] : white,
-                  },
-
-                  icon: {
-                    color: colors.gray[colorScheme === "dark" ? 3 : 7],
-                  },
-                }),
-
-                Navbar: ({ colors, colorScheme }) => ({
-                  root: {
-                    borderRight: `1px solid ${
-                      colors.gray[colorScheme === "dark" ? 8 : 3]
-                    }`,
-                    backgroundColor:
-                      colorScheme === "dark" ? colors.dark[6] : colors.gray[0],
-                  },
-                }),
-
-                Footer: ({ colors, colorScheme }) => ({
-                  root: {
-                    borderTop: `1px solid ${
-                      colors.gray[colorScheme === "dark" ? 8 : 3]
-                    }`,
-                    backgroundColor:
-                      colorScheme === "dark" ? colors.dark[6] : colors.gray[0],
-                  },
-                }),
-
-                Header: ({ colors, colorScheme }) => ({
-                  root: {
-                    borderBottom: `1px solid ${
-                      colors.gray[colorScheme === "dark" ? 8 : 3]
-                    }`,
-                    backgroundColor:
-                      colorScheme === "dark" ? colors.dark[6] : colors.gray[0],
-                  },
-                }),
-              }}
-            >
+            <TypographyStylesProvider>
               <GlobalStyles />
               {children}
-            </MantineProvider>
-          </ColorSchemeProvider>
-        </ChromeContext.Provider>
-      </LanguageContext.Provider>
-    </RecoilRoot>
+            </TypographyStylesProvider>
+          </MantineProvider>
+        </ColorSchemeProvider>
+      </ChromeContext.Provider>
+    </LanguageContext.Provider>
   );
 };
 
