@@ -1,17 +1,20 @@
 import { app, BrowserWindow } from "electron";
-import { add } from "@common/utils";
 import { join } from "path";
-import { pathToFileURL, format as formatUrl } from "url";
+import { pathToFileURL } from "url";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
+let win: BrowserWindow;
+
 function createWindow() {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      preload: join(__dirname, "preload.js"),
     },
     show: false,
   }).once("ready-to-show", () => {

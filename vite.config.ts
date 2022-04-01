@@ -1,13 +1,13 @@
 import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
-import { join, resolve } from "path";
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 const rendererPath = resolve(__dirname, "./src/renderer");
-const outDirRenderer = resolve(__dirname, "./app/renderer")
+const outDirRenderer = resolve(__dirname, "./app/renderer");
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [reactRefresh()],
+  plugins: [react()],
   base: "./",
   root: rendererPath,
   build: {
