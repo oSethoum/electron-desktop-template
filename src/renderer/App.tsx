@@ -1,12 +1,19 @@
-import { AppShell, Box, Button } from "@mantine/core";
-import { Home, NavBar, StatusBar, ToolBar } from "./ui";
+import { Box } from "@mantine/core";
+import { Home, StatusBar, ToolBar } from "./ui";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Box>
-      <AppShell header={<ToolBar />} navbar={<NavBar />} footer={<StatusBar />}>
-        <Home />
-      </AppShell>
+    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      <ToolBar />
+      <Box sx={{ flexGrow: 1 }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      </Box>
+      <StatusBar />
     </Box>
   );
 }

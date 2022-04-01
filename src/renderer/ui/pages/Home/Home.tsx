@@ -1,7 +1,11 @@
 import React, { FC } from "react";
-import { Box, BoxProps } from "@mantine/core";
+import { Box, BoxProps, Center, Title } from "@mantine/core";
 
 export interface IHomeProps extends BoxProps<"div"> {}
 export const Home: FC<IHomeProps> = () => {
-  return <Box></Box>;
+  return (
+    <Center sx={{ height: "100%" }}>
+      <Title order={1}>Hello, World</Title>
+    </Center>
+  );
 };
