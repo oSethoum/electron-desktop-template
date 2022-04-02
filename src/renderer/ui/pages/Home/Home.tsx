@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { Box, BoxProps, Center, Title } from "@mantine/core";
+import { FC } from "react";
+import { BoxProps, Center, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
 export interface IHomeProps extends BoxProps<"div"> {}
