@@ -33,6 +33,8 @@ ipcMain.on("chrome", (event, data) => {
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().size;
   win = new BrowserWindow({
+    x: 180,
+    y: 80,
     minWidth: width * 0.8,
     minHeight: height * 0.8,
     frame: false,
